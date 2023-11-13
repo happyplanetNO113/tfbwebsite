@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>搜索结果</title>
+  <style>
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+
+    .logo img {
+      margin-top: 5px;
+      height: 50px;
+    }
+
+    .logo::after {
+      content: "点击返回主页";
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .logo:hover::after {
+      opacity: 1;
+    }
+
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="../home.html" class="logo">
+        <img src="../img/logo.png" alt="Logo">
+      </a>
+    </div>
+    <div class="header-content">
+      <h1>搜索结果</h1>
+    </div>
+  </header>
+
+  <div id="search-results"></div>
+
+  <script>
+    // 获取查询参数
+    const queryParams = new URLSearchParams(window.location.search);
+    const searchTerm = queryParams.get('q');
+
+    // 获取页面元素
+    const searchResults = document.getElementById('search-results');
+
+    // 进行搜索
+    const results = performSearch(searchTerm);
+
+    // 显示搜索结果
+    showResults(results);
+
+    // 执行搜索的函数
+    function performSearch(searchTerm) {
+      // 在这里进行实际的搜索操作，可以是向服务器发送请求获取数据，也可以是在本地进行数据的筛选和匹配
+      // 返回搜索结果的数组
+      // 这里使用一个简单的示例，假设有一个存储了多个项目名称的数组 projects，我们根据搜索词进行项目名称的匹配
+      const projects = [
+        '项目 A',
+        '项目 B',
+        '项目 C',
+      ];
+
+      const results = projects.filter(function (project) {
+        return project.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+
+      return results;
+    }
+
+    // 显示搜索结果的函数
+    function showResults(results) {
+      if (results.length === 0) {
+        const noResultsMessage = document.createElement('div');
+        noResultsMessage.innerText = '没有找到结果';
+        searchResults.appendChild(noResultsMessage);
+      } else {
+        results.forEach(function (result) {
+          const resultElement = document.createElement('div');
+          resultElement.innerText = result;
+          searchResults.appendChild(resultElement);
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
