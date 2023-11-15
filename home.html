@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>丝源游</title>
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo">
+    </div>
+    <div class="actions">
+      <input type="text" id="search-input" class="search-input" placeholder="Enter a search term">
+      <button id="search-button" class="search-button">搜索search</button>
+      <button class="issue"><a href="html/issue.html">发布信息issue info</a></button>
+    </div>
+  </header>
+
+  <div id="slideshow">
+    <img id="img" src="img/1.jpg" width="100%">
+  </div>
+
+  <div class="hero">
+    <h2>发现心仪的项目 Find your favorite projects!</h2>
+    <div class="roles">
+      <h3 class="gang">招募者Recruiters</h3>
+      <h3 class="gang">志愿者Volunteers</h3>
+    </div>
+  </div>
+
+  <div class="card-container">
+    <div class="card">
+      <div class="card-content">
+        <div class="text-content">
+          <h2>兵马俑一日游</h2>
+          <p>姓名:Alice Wong 性别:女</p>
+          <p>来自:美国 语言:英语/法语</p>
+          <p>报酬:无 要求:an outgoing girl</p>
+          <p>联系方式：wechatxxxx</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="text-content">
+          <h2>全西安</h2>
+          <p>姓名:吴晓语 性别:女</p>
+          <p>年级:大二 语言:英语/中文</p>
+          <p>期望报酬:无空闲时间：可议</p>
+          <p>联系方式：wechatxxxx</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="text-content">
+          <h2>华清池</h2>
+          <p>姓名:Lia 性别:女</p>
+          <p>来自:俄罗斯 语言:英语/俄语</p>
+          <p>报酬:无 要求:an outgoing girl</p>
+          <p>联系方式：wechatxxxx</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="text-content">
+          <h2>钟楼/大雁塔</h2>
+          <p>姓名:杜帅 性别:男</p>
+          <p>年级:大二 语言:英语/中文/俄语</p>
+          <p>期望报酬:无 空闲时间：周末下午</p>
+          <p>联系方式：wechatxxxx</p>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100% ;height: 1px;"></div>
+    <div class="more">
+      <a href="html/results.html?q=">
+        <h4>>>点击查看更多 Click to see more</h4>
+      </a>
+    </div>
+    <footer>
+      <p>版权所有 © 腾飞杯丝源游项目小组 </p>
+    </footer>
+
+    <script>
+      window.onload = function () {
+        // 修改图片src属性
+        var number = 1;
+        function fun() {
+          number++;
+          // 判断number是否大于3
+          if (number > 3) {
+            number = 1;
+          }
+          // 获取img对象
+          var img = document.getElementById("img");
+          img.src = "img/" + number + ".jpg";
+        }
+        // 定义定时器
+        setInterval(fun, 5000);
+      }
+      // 获取页面元素
+      const searchInput = document.getElementById('search-input');
+      const searchButton = document.getElementById('search-button');
+
+      // 监听搜索按钮的点击事件
+      searchButton.addEventListener('click', function () {
+        // 获取搜索词
+        const searchTerm = searchInput.value;
+
+        // 跳转到结果页面，并将搜索词作为查询参数传递
+        window.location.href = 'html/results.html?q=' + encodeURIComponent(searchTerm);
+      });
+    </script>
+</body>
+
+</html>

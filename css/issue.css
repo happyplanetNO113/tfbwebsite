@@ -1,0 +1,83 @@
+/* 全局样式 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* 导航栏样式 */
+
+.nav {
+  background-color: #fff;
+  color: #333;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #cc3333;
+}
+
+.nav img {
+  width: 100px;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.nav .title {
+  flex-grow: 1;
+}
+
+.nav a {
+  margin: 0 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+/* 容器样式 */
+
+.container {
+  width: 60%;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
+
+/* 表单项样式 */
+
+.type,
+.gender,
+.pay,
+.language,
+.others {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 120px;
+}
+
+.button {
+  position: absolute;
+  right: 25%;
+  bottom: 5px;
+  padding: 10px 20px;
+  background-color: #cc3333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  /* 圆角 */
+  cursor: pointer;
+}
+
+/* 底部样式 */
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}

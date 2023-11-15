@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>搜索结果</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    #search-results p {
+      font-size: 1px;
+      color: grey;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    #search-results {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    #filterOptions {
+      display: flex;
+      justify-content: center;
+      margin-top: 1px;
+      margin-right: 10px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    select {
+      padding: 8px;
+    }
+
+    .result {
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px;
+      border-radius: 5px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .result h2 {
+      font-size: 18px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .no-results {
+      color: #888;
+      font-style: italic;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .close-button {
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1;
+      /* 确保关闭按钮位于模态框上层 */
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="../home.html" class="logo">
+        <img src="../img/logo.png" alt="Logo">
+      </a>
+    </div>
+    <div>
+      <label for="filterType">选择筛选类型：</label>
+      <select id="filterType" onchange="updateFilterOptions()">
+        <option value="all">全部 All</option>
+        <option value="gender">按性别 Select by gender</option>
+        <option value="type">按身份类型 Select by type</option>
+        <option value="language">按所会语言 Select by language</option>
+        <option value="pay">按有无报酬 Select by pay</option>
+      </select>
+    </div>
+
+    <div id="filterOptions" style="display: none;">
+      <label for="filter">选择筛选项：</label>
+      <select id="filter" onchange="filterResults()">
+        <!-- 筛选项将在 JavaScript 中动态添加 -->
+      </select>
+    </div>
+
+  </header>
+  <div style="width: 100%;height: 60px;">
+
+  </div>
+  <div id="search-results">
+    <p>点击姓名可查看详细信息，点击左上角图片可返回主页</p>
+    <p>Click name to know further info.Click logo to go back to home.</p><br><br>
+  </div>
+  <script>
+    // 获取查询参数
+    const queryParams = new URLSearchParams(window.location.search);
+    const searchTerm = queryParams.get('q');
+
+    // 获取页面元素
+    const searchResults = document.getElementById('search-results');
+
+    // 进行搜索
+    const results = performSearch(searchTerm);
+
+    // 显示搜索结果
+    showResults(results);
+
+    // 执行搜索的函数
+    function performSearch(searchTerm) {
+      // 在这里进行实际的搜索操作，可以是向服务器发送请求获取数据，也可以是在本地进行数据的筛选和匹配
+      // 返回搜索结果的数组
+      // 这里使用一个简单的示例，假设有一个存储了多个项目名称的数组 projects，我们根据搜索词进行项目名称的匹配
+      const projects = [
+        'Alice Wong',
+        'James Will',
+        'John',
+        'Lia',
+        '吴晓语',
+        '徐丽丽',
+        '宋之山',
+        '杜帅'
+      ];
+
+      const results = projects.filter(function (project) {
+        return project.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+
+      return results;
+    }
+
+    // 显示搜索结果的函数
+    function showResults(results) {
+      if (results.length === 0) {
+        const noResultsMessage = document.createElement('div');
+        noResultsMessage.innerText = '没有找到结果';
+        searchResults.appendChild(noResultsMessage);
+      } else {
+        results.forEach(function (result) {
+          const resultElement = document.createElement('div');
+          resultElement.innerText = result.name; // 显示对象的名字属性
+          resultElement.style.marginBottom = '30px'; // 设置垂直间距
+
+          // 添加点击事件处理程序
+          resultElement.addEventListener('click', function () {
+            // 显示模态框
+            showModal(result);
+          });
+
+          // 将结果元素添加到搜索结果容器
+          searchResults.appendChild(resultElement);
+        });
+      }
+    }
+
+    function updateFilterOptions() {
+      const filterType = document.getElementById('filterType').value;
+      const filterOptionsElement = document.getElementById('filterOptions');
+      const filterSelectElement = document.getElementById('filter');
+
+      // 清空之前的选项
+      filterSelectElement.innerHTML = '';
+
+      // 根据选择的筛选类型添加相应的选项
+      if (filterType === 'gender') {
+        addOption(filterSelectElement, '男性 male', '男性 male');
+        addOption(filterSelectElement, '女性 female', '女性 female');
+      } else if (filterType === 'type') {
+        addOption(filterSelectElement, '招募者 recruiter', '招募者 recruiter');
+        addOption(filterSelectElement, '志愿者 volunteer', '志愿者 volunteer');
+      } else if (filterType === 'language') {
+        addOption(filterSelectElement, '英语 English', '英语 English');
+        addOption(filterSelectElement, '中文 Chinese', '中文 Chinese');
+        addOption(filterSelectElement, '法语 French', '法语 French');
+        addOption(filterSelectElement, '日语 Japanese', '日语 Japanese');
+        addOption(filterSelectElement, '俄语 Russian', '俄语 Russian');
+        addOption(filterSelectElement, '德语 Germany', '德语 Germany');
+      } else if (filterType === 'pay') {
+        addOption(filterSelectElement, 'yes', '有 yes');
+        addOption(filterSelectElement, 'no', '无 no');
+      }
+
+
+
+      // 显示筛选项
+      filterOptionsElement.style.display = 'block';
+    }
+
+    function addOption(selectElement, value, label) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.text = label;
+      selectElement.add(option);
+    }
+
+    function filterResults() {
+      const searchTerm = queryParams.get('q');
+      const filterType = document.getElementById('filterType').value;
+      const filterValue = document.getElementById('filter').value;
+
+      // 进行搜索
+      let results;
+      if (filterType === 'all') {
+        // 如果筛选类型为“全部”，则显示所有结果
+        results = performSearch(searchTerm);
+      } else {
+        // 否则，根据筛选类型和值进行搜索
+        results = performSearch(searchTerm, filterType, filterValue);
+      }
+
+
+      // 清空搜索结果容器
+      searchResults.innerHTML = '';
+
+      // 显示搜索结果
+      showResults(results);
+    }
+
+    // 修改 performSearch 函数来接受筛选类型和值
+    function performSearch(searchTerm, filterType, filterValue) {
+      // 根据筛选类型和值进行搜索
+      const projects = [
+        {
+          name: 'Alice Wong', gender: '女性 female', type: '招募者 recruiter', languages: ['英语 English', '法语 French'],
+          pay: 'no', contact: 'wechatxxxx', others: 'an outgoing girl', place: '兵马俑一日游'
+        },
+        {
+          name: 'Lia', gender: '女性 female', type: '招募者 recruiter', languages: ['英语 English', '俄语 Russian'],
+          pay: 'no', contact: 'wechatxxxx', others: 'no other requirements', place: '华清池'
+        },
+        {
+          name: 'James Will', gender: '男性 male', type: '招募者 recruiter', languages: ['英语 English'],
+          pay: 'yes', contact: 'qqxxxxx', others: 'no other requirements', place: '全西安'
+        },
+        {
+          name: 'John', gender: '男性 male', type: '招募者 recruiter', languages: ['英语 English', '德语 Germany'],
+          pay: 'no', contact: 'qqxxxxx', others: 'no other requirements', place: '回民街'
+        },
+        {
+          name: '吴晓语 Xiaoyu Wu', gender: '女性 female', type: '志愿者 volunteer', languages: ['英语 English', 'Chinese'],
+          pay: 'no', contact: 'wechatxxxx', others: 'no other requirements', place: '全西安'
+        },
+        {
+          name: '徐丽丽 Lili Xu', gender: '女性 female', type: '志愿者 volunteer', languages: ['英语 English', '法语 French', '中文 Chinese'],
+          pay: 'yes', contact: 'qqxxxxx', others: 'no other requirements', place: '回民街/钟楼'
+        },
+        {
+          name: '杜帅 Shuai Du', gender: '男性 male', type: '志愿者 volunteer', languages: ['英语 English', '德语 Germany'],
+          pay: 'no', contact: 'wechatxxxx', others: 'no other requirements', place: '钟楼/大雁塔'
+        },
+        {
+          name: '宋之山 Zhishan Song', gender: '男性 male', type: '志愿者 volunteer',
+          languages: ['日语 Japanese', '中文 Chinese'], pay: 'yes', contact: 'qqxxxxx', others: 'no other requirements', place: '全西安'
+        }
+      ];
+
+
+
+      const results = projects.filter(function (project) {
+        const nameMatch = project.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+        if (filterType === 'gender') {
+          return nameMatch && (filterValue === 'all' || project.gender === filterValue);
+        } else if (filterType === 'type') {
+          return nameMatch && (filterValue === 'all' || project.type === filterValue);
+        } else if (filterType === 'language') {
+          // 统一处理成数组
+          const languages = Array.isArray(project.languages) ? project.languages : [project.languages];
+          return nameMatch && (filterValue === 'all' || languages.includes(filterValue));
+        } else if (filterType === 'pay') {
+          return nameMatch && (filterValue === 'all' || project.pay === filterValue);
+        } else if (filterType === 'all') {
+          return name;
+        }
+
+        return nameMatch;
+      });
+
+      return results;
+    }
+
+    // showModal 函数用于显示模态框
+    function showModal(result) {
+      // 创建模态框
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+
+      // 创建模态框内容
+      const modalContent = document.createElement('div');
+      modalContent.className = 'modal-content';
+
+      // 显示详细信息
+      modalContent.innerHTML = `
+        <p>姓名 Name: ${result.name}</p>
+        <p>性别 Gender: ${result.gender}</p>
+        <p>身份类型 Type: ${result.type}</p>
+        <p>擅长语言 Language: ${result.languages.join(', ')}</p>
+        <p>报酬 Pay: ${result.pay === 'yes' ? '有 Yes' : '无 No'}</p>
+        <p>地点 Place:${result.place}</p>
+        <p>联系方式 Contact:${result.contact}</p>
+        <p>特殊要求 Others:${result.others}</p>
+      `;
+
+      // 创建关闭按钮
+      const closeButton = document.createElement('span');
+      closeButton.className = 'close-button';
+      closeButton.innerHTML = '&times;'; // 使用 "x" 字符表示关闭
+      closeButton.addEventListener('click', function () {
+        // 关闭模态框
+        modal.style.display = 'none';
+      });
+      // 将关闭按钮添加到模态框内容
+      modalContent.appendChild(closeButton);
+      // 将模态框内容添加到模态框
+      modal.appendChild(modalContent);
+      // 将模态框添加到页面
+      document.body.appendChild(modal);
+      // 显示模态框
+      modal.style.display = 'flex';
+    }
+  </script>
+</body>
+
+</html>

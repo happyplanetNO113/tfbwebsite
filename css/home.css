@@ -1,0 +1,160 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  height: 50px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.actions {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.actions input {
+  padding: 5px;
+  margin-right: 10px;
+  border: none;
+}
+
+.actions button {
+  padding: 8px 20px;
+  border: none;
+  color: #fff;
+  border-radius: 10%;
+}
+
+.actions button:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.search-button {
+  background-color: #cc3333;
+}
+
+.issue {
+  background-color: #333;
+}
+
+.issue a {
+  text-decoration: none;
+  color: #fff;
+}
+
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+
+
+.hero {
+  background-color: #fff;
+  background-size: cover;
+  text-align: center;
+  padding: 20px;
+  color: #333;
+}
+
+.hero h2 {
+  font-size: 32px;
+}
+
+.roles {
+  display: flex;
+  justify-content: space-around;
+  font-size: 22px;
+}
+
+.gang {
+  border-left: 4px solid #cc3333;
+  padding-left: 15px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  width: 35%;
+  /* 控制卡片宽度 */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  flex: 0 0 40%;
+  /* 图片容器占比，可以根据需要调整 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* 防止图片溢出容器 */
+  position: relative;
+}
+
+.card-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 保持图片比例并填充整个容器 */
+}
+
+.text-content {
+  padding: 0 40px;
+  /* 可以根据需要调整文本内容的边距 */
+}
+
+.text-content h2 {
+  text-align: center;
+}
+
+.more {
+  right: 0;
+  margin-bottom: 20px;
+}
+
+.more a {
+  text-decoration: none;
+  color: black;
+}
+
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    /* 在小屏幕上占满整行 */
+  }
+}

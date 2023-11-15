@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布信息 issue information</title>
+  <link rel="stylesheet" href="../css/issue.css">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <div class="nav">
+    <img src="../img/logo.png" alt="">
+    <span class="title">发布信息页面 issue information page</span>
+    <!-- 使用 span 把左右两侧的元素给撑开 -->
+    <span class="spacer"></span>
+    <a href="../home.html">回到主页 Go back to home</a>
+  </div>
+
+  <!-- 发布 -->
+  <div class="container">
+    <div class="type">
+      <label>您是 you are an :</label>
+      <label><input type="radio" name="type" value="Recruiters">招募者 Recruiter</label>
+      <label><input type="radio" name="type" value="Recruiters">志愿者 Volunteer</label>
+    </div>
+    <div class="gender">
+      <label>您的性别 your gender :</label>
+      <label><input type="radio" name="gender" value="male">男 male</label>
+      <label><input type="radio" name="gender" value="female">女 female</label>
+    </div>
+    <div class="pay">
+      <label>是否有报酬 pay or not :</label>
+      <label><input type="radio" name="pay" value="yes">是 yes</label>
+      <label><input type="radio" name="pay" value="no">否 no</label>
+    </div>
+    <div class="language">
+      <label>熟悉的语言 your familiar language :</label><br>
+      <label><input type="checkbox" name="language" value="English">英语 English</label>
+      <label><input type="checkbox" name="language" value="Chinese">中文 Chinese</label>
+      <label><input type="checkbox" name="language" value="French">法语 French</label><br>
+      <label><input type="checkbox" name="language" value="Japanese">日语 Japanese</label>
+      <label><input type="checkbox" name="language" value="Russian">俄语 Russian</label>
+      <label><input type="checkbox" name="language" value="German">德语 German</label>
+    </div>
+    <div class="others">
+      <form id="myForm">
+        <label for="userName">您的姓名 Your name</label><br>
+        <input type="text" id="userName" name="userName" style="width: 40%;" required>
+        <br><br>
+      </form>
+      <form id="myForm">
+        <label for="userPlace">您想游览 Ideal visiting place</label><br>
+        <input type="text" id="userPlace" name="userPlace" style="width: 40%;" required>
+        <br><br>
+      </form>
+      <form id="myForm">
+        <label for="userInfo">其他要求 Other requirements：</label><br>
+        <input type="text" id="userInfo" name="userInfo" style="width: 60%; height: 200px;" required>
+        <br>
+        <button type="button" class="button" onclick="submitForm()">提交</button>
+      </form>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>版权所有 © 腾飞杯丝源游项目小组 </p>
+  </footer>
+  <script>
+    function submitForm() {
+      var userInfo = document.getElementById("userInfo").value;
+      // 使用 AJAX 或其他方法将数据发送到后台
+      // 以下是一个简单的使用 XMLHttpRequest 的例子
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/submit", true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify({ userInfo: userInfo }));
+
+      // 提交成功后的弹窗
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          alert('提交成功！');
+        } else {
+          alert('提交失败，请重试。');
+        }
+      };
+    }
+  </script>
+</body>
+
+</html>
